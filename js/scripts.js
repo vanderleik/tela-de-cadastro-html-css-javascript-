@@ -21,15 +21,33 @@ class Validator {
             for (let i = 0; this.validations.length > i; i++) {
                 //verifica se a validação atual existe no input
                 if (input.getAttribute(this.validations[i]) !=null) {
-                    console.log(input.getAttribute(this.validations[i]));
-                    console.log("achou a validação");
+                    
+                    //limpando a string para virar um método
+                    //data-min-length -> minlength
+                    let method = this.validations[i].replace('data-', '').replace('-','');
+
+                    //valor do input
+                    let value = input.getAttribute(this.validations[i]);
+
+                    //invoca o método
+                    this[method](input, value);
                 }
             }
 
         }, this);
-
     };
+    //verifica se um input tem um número mínimo de caracteres
+    minlength(input, minValue) {
+        let inputLength = input.value.length;
+        let errorMessage = `O campo precisa ter pelo menos ${minValue} caracteres`;
+        if (inputLength < minValue) {
+            console.log(errorMessage);
+        }
+    
+    };
+
 }
+
 
 let form = document.getElementById("register-form");
 let submit = document.getElementById("btn-submit");
