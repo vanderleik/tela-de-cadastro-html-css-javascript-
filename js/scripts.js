@@ -9,6 +9,12 @@ class Validator {
     //iniciar a validação de todos os campos
     validate(form) {
 
+        //resgata todas as validações
+        let currentValidations = document.querySelectorAll("form .error-validation");
+        if (currentValidations.length > 0) {
+            this.cleanValidations(currentValidations);
+        }
+
         //pegar os inputs
         let inputs = form.getElementsByTagName("input");
         
@@ -56,6 +62,11 @@ class Validator {
         template.classList.remove("template");
 
         inputParent.appendChild(template);
+    }
+
+    //limpa as validações da tela
+    cleanValidations(validations) {
+        validations.forEach(el => el.remove());
     }
 
 }
