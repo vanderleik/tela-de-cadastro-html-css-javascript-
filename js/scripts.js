@@ -2,6 +2,7 @@ class Validator {
 
     constructor() {
         this.validations = [
+            'data-required',
             'data-min-length',
             'data-max-length',
         ];
@@ -66,13 +67,30 @@ class Validator {
 
     //método para imprimir mensagens de erro na tela
     printMessage(input, msg) {
-        let template = document.querySelector(".error-validation").cloneNode(true);
-        template.textContent = msg;
 
-        let inputParent = input.parentNode;
-        template.classList.remove("template");
+        //verificar a quantidade de erros
+        let errorsQty = input.parentNode.querySelector(".error-validation");
 
-        inputParent.appendChild(template);
+        if (errorsQty === null) {
+            let template = document.querySelector(".error-validation").cloneNode(true);
+            template.textContent = msg;
+    
+            let inputParent = input.parentNode;
+            template.classList.remove("template");
+    
+            inputParent.appendChild(template);
+        };
+
+    };
+
+    //verifica se o input é requerido
+    required(input) {
+        let inputValue = input.value;
+
+        if (inputValue === '') {
+            let errorMessage = "Este campo é obrigatório";
+            this.printMessage(input, errorMessage);
+        }
     }
 
     //limpa as validações da tela
