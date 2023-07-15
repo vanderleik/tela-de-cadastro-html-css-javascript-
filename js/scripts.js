@@ -7,6 +7,7 @@ class Validator {
             'data-max-length',
             'data-email-validate',
             'data-only-letters',
+            'data-equal',
         ];
     }
 
@@ -115,6 +116,17 @@ class Validator {
 
         if (inputValue === '') {
             let errorMessage = "Este campo é obrigatório";
+            this.printMessage(input, errorMessage);
+        }
+    }
+
+    //verifica se dois campos são iguais
+    equal(input, inputName) {
+        let inputToCompare = document.getElementsByName(inputName)[0];
+
+        let errorMessage = `Este campo precisa ser igual ao ${inputName}`;
+
+        if (input.value != inputToCompare.value) {
             this.printMessage(input, errorMessage);
         }
     }
