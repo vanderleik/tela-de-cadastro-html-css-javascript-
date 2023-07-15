@@ -8,6 +8,7 @@ class Validator {
             'data-email-validate',
             'data-only-letters',
             'data-equal',
+            'data-password-validate',
         ];
     }
 
@@ -127,6 +128,29 @@ class Validator {
         let errorMessage = `Este campo precisa ser igual ao ${inputName}`;
 
         if (input.value != inputToCompare.value) {
+            this.printMessage(input, errorMessage);
+        }
+    }
+
+    //Valida campo senha
+    passwordvalidate(input) {       
+
+        //explodir string em um array
+        let charArr = input.value.split("");
+        
+        let upperCases = 0;
+        let numbers = 0;
+
+        for (let i = 0; charArr.length > i; ++i) {
+            if (charArr[i] === charArr[i].toUpperCase() && isNaN(parseInt(charArr[i]))) {
+                upperCases++;
+            } else if (!isNaN(parseInt(charArr[i]))) {
+                numbers++;
+            }            
+        }
+
+        if (upperCases === 0 || numbers === 0) {
+            let errorMessage = "A senha precisa de pelo menos uma letra maiúscula e um número";
             this.printMessage(input, errorMessage);
         }
     }
