@@ -6,6 +6,7 @@ class Validator {
             'data-min-length',
             'data-max-length',
             'data-email-validate',
+            'data-only-letters',
         ];
     }
 
@@ -76,7 +77,19 @@ class Validator {
             this.printMessage(input, errorMessage);
         }
 
-    }    
+    }
+    
+    //valida se o campo tem apenas letras
+    onlyletters(input) {
+        let re = /^[A-Za-z]+$/;
+
+        let inputValue = input.value;
+        let errorMessage = "Este campo não aceita números ou caracteres especiais";
+
+        if (!re.test(inputValue)) {
+            this.printMessage(input, errorMessage);
+        }
+    }
 
     //método para imprimir mensagens de erro na tela
     printMessage(input, msg) {
